@@ -1,0 +1,1 @@
+Tarea de triggers cooperativa
