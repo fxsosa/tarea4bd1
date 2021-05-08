@@ -147,15 +147,12 @@ ORDER BY S1.NROSOCIO;
 SELECT CI, NOMBRES, APELLIDOS, EDAD FROM SOCIOS WHERE EDAD BETWEEN 25 AND 30;
 
 --6
-SELECT
-P.NROPRESTAMO, S.NROSOCIO, S.CI, S.NOMBRES, S.APELLIDOS , P.MONTO ,  SP.NOMBRES||''||SP.APELLIDOS
-FROM
-PRESTAMO P, SOCIOS S, SOCIOS SP
-WHERE
-P.MONTO = (SELECT MAX(MONTO) FROM PRESTAMO)
-AND S.NROSOCIO = P.NROSOCIO
-AND S.SOCIOPROPONENTE = SP.NROSOCIO
-
+select
+pr.nroprestamo, s1.nrosocio, s1.ci, s1.nombres, s1.apellidos , pr.monto ,  s2.nombres, s2.apellidos
+from
+prestamo pr JOIN socios s1 ON s1.nrosocio = pr.nrosocio LEFT JOIN socios s2 ON s1.socioproponente = s2.nrosocio
+where
+pr.monto = (select MAX(monto) from prestamo);
 COMMIT;
 
 DISCONNECT;
